@@ -17,6 +17,7 @@ app.get('/', (req, res) => {
 isAdmin = (req, res, next) => {
   if (req.cookies && req.cookies.user){
     return next();
+    //holaaa
   }
   res.redirect('login');
 }

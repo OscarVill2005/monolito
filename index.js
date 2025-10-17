@@ -21,7 +21,7 @@ const isAdmin = (req, res, next) => {
     return next();
   }
   res.redirect('login');
-}
+};
 
 const isAuth = (req, res, next) => {
   if (req.cookies && req.cookies.user && req.cookies.role == 'user') {

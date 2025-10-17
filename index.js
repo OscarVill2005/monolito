@@ -16,14 +16,14 @@ app.get('/', (req, res) => {
   res.render('index', { title: 'Titulo', name: 'Nombre' });
 });
 
-isAdmin = (req, res, next) => {
+const isAdmin = (req, res, next) => {
   if (req.cookies && req.cookies.user && req.cookies.role == 'admin') {
     return next();
   }
   res.redirect('login');
 };
 
-isAuth = (req, res, next) => {
+const isAuth = (req, res, next) => {
   if (req.cookies && req.cookies.user && req.cookies.role == 'user') {
     return next();
   }

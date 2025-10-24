@@ -14,7 +14,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 
-
 const pool = new Pool({
   host: process.env.DB_HOST || 'dreamy_buck',
   port: process.env.DB_PORT || 5432,
@@ -40,10 +39,14 @@ function isAuth(req, res, next) {
 
 app.get('/', (req, res) => {
   console.log('login page');
-  res.render('login')
+  res.render('login');
 });
-app.get('/home', isUser, (req, res) => res.render('home', { user: req.cookies.user }));
-app.get('/admin', isAdmin, (req, res) => res.render('admin', { user: req.cookies.user }));
+app.get('/home', isUser, (req, res) =>
+  res.render('home', { user: req.cookies.user }),
+);
+app.get('/admin', isAdmin, (req, res) =>
+  res.render('admin', { user: req.cookies.user }),
+);
 
 app.get('/logout', (req, res) => {
   res.clearCookie('user');
@@ -57,7 +60,7 @@ app.post('/login', async (req, res) => {
   try {
     const result = await pool.query(
       'SELECT username, password, role FROM users WHERE username = $1',
-      [user]
+      [user],
     );
 
     const dbuser = result.rows[0];

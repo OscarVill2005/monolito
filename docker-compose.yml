@@ -1,0 +1,49 @@
+services:
+
+  app_1:
+    build: ./node-app
+    container_name: node-app_1
+    networks:
+      - reddoscapas
+    environment:
+      - DB_HOST=dreamy_buck
+    ports:
+      - "1234:3000"
+
+  bbdd_1:
+    build: ./postgres-app
+    container_name: dreamy_buck
+    volumes:
+      - datos_postgres:/var/lib/postgresql/data
+    networks:
+      - reddoscapas
+
+  app_2:
+    build: ./node-app
+    container_name: node-app_2
+    networks:
+      - red
+    environment:
+      - DB_HOST=dreamy_buck_2
+    ports:
+      - "1235:3000"
+
+  bbdd_2:
+    build: ./postgres-app
+    container_name: dreamy_buck_2
+    volumes:
+      - datos_postgres:/var/lib/postgresql/data
+    networks:
+      - reddoscapas
+
+
+networks:
+  reddoscapas:
+    driver: bridge
+
+  red:
+    driver: bridge
+
+volumes:
+  datos_postgres:
+    driver: local

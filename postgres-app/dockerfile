@@ -2,9 +2,10 @@
 FROM postgres:16-alpine
 
 # Establece variables de entorno por defecto (puedes cambiarlas al ejecutar)
-ENV POSTGRES_USER=postgres
-ENV POSTGRES_PASSWORD=Rumbo2005
-ENV POSTGRES_DB=monolito
+ENV POSTGRES_USER=postgres 
+ENV POSTGRES_PASSWORD=Rumbo2005 
+ENV POSTGRES_DB=monolito 
+ENV PGDATA=/var/lib/postgresql/data
 
 VOLUME ["/var/lib/postgresql/data"]
 

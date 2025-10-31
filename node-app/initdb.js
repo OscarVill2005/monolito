@@ -4,10 +4,15 @@ const bcrypt = require('bcrypt');
 require('dotenv').config();
 
 const client = new Client({
+  // eslint-disable-next-line no-undef
   host: process.env.DB_HOST,
+  // eslint-disable-next-line no-undef
   port: process.env.DB_PORT,
+  // eslint-disable-next-line no-undef
   database: process.env.DB_NAME,
+  // eslint-disable-next-line no-undef
   user: process.env.DB_USER,
+  // eslint-disable-next-line no-undef
   password: process.env.DB_PASSWORD,
 });
 

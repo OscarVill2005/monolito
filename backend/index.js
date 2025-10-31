@@ -15,6 +15,30 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 
+function initDb() {
+  pool.connect((err) => {
+    if (err) {
+      console.error('Error connecting to the database', err);
+    } else {
+      console.log('Connected to the database');
+    }
+  });
+  try{
+  pool.query(`CREATE TABLE IF NOT EXISTS users (
+        id SERIAL PRIMARY KEY,
+        username VARCHAR(255) UNIQUE NOT NULL,
+        password VARCHAR(255) NOT NULL,
+        role VARCHAR(50) NOT NULL
+    )`,
+    )
+    console.log('Database initialized');
+  }
+  catch(err){
+    console.error('Error initializing database', err);
+  }
+}
+
+
 const pool = new Pool({
     // eslint-disable-next-line no-undef
   host: process.env.DB_HOST || 'dreamy_buck',
@@ -111,6 +135,8 @@ app.post('/registro', async (req, res) => {
     return res.redirect('/registro');
   }
 });
+
+initDb();
 
 app.listen(port, () => {
   console.log(`Servidor escuchando en el puerto ${port}`);
